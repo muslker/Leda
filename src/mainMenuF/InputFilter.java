@@ -1,4 +1,4 @@
-package MainMenuF;
+package mainMenuF;
 
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;

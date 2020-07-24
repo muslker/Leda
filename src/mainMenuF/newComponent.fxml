@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainMenuF.newComponentController">
+    <Label layoutX="13.0" layoutY="14.0" opacity="0.7" prefHeight="30.0" prefWidth="167.0" text="New Component">
+        <font>
+            <Font name="System Bold" size="20.0" />
+        </font>
+    </Label>
+    <Label layoutX="749.0" layoutY="74.0" opacity="0.2" prefHeight="25.0" prefWidth="45.0" text="Count">
+      <font>
+         <Font size="15.0" />
+      </font>
+    </Label>
+    <TextField fx:id="name_CTextF" layoutX="25.0" layoutY="99.0" prefHeight="25.0" prefWidth="340.0" promptText="Name" />
+    <TextField fx:id="count_CTextF" layoutX="749.0" layoutY="99.0" prefHeight="25.0" prefWidth="45.0" promptText="Count" text="1" />
+   <TableView fx:id="newComponentTableView" editable="true" layoutX="13.0" layoutY="134.0" prefHeight="382.0" prefWidth="874.0">
+     <columns>
+         <TableColumn fx:id="nameColumn" prefWidth="228.0" text="Name" />
+         <TableColumn fx:id="valuesColumn" prefWidth="594.0" text="Values" />
+         <TableColumn fx:id="countColumn" prefWidth="50.0" text="Count" />
+     </columns>
+   </TableView>
+   <TextField fx:id="value_CTextF" layoutX="390.0" layoutY="99.0" prefHeight="25.0" prefWidth="340.0" promptText="Value" />
+   <Button fx:id="addComponentButton" layoutX="225.0" layoutY="62.0" mnemonicParsing="false" onAction="#addButtonPushed" prefHeight="25.0" prefWidth="140.0" text="Add Component" />
+    <Button fx:id="deleteComponentButton" layoutX="390.0" layoutY="62.0" mnemonicParsing="false" onAction="#deleteButtonPushed" prefHeight="25.0" prefWidth="140.0" text="Delete Component" />
+
+    <Button fx:id="mainPageButton" alignment="CENTER" layoutX="734.0" layoutY="543.0" mnemonicParsing="false" onAction="#goto_mainPage" prefHeight="30.0" prefWidth="120.0" text="Previous Page" underline="true" />
+
+</AnchorPane>
