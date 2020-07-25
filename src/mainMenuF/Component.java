@@ -6,7 +6,6 @@ public class Component {
 
     private final SimpleStringProperty name, value, count;
 
-//    public Component(String name, String value, String count) {
     public Component() {
         this.name = new SimpleStringProperty();
         this.value = new SimpleStringProperty();

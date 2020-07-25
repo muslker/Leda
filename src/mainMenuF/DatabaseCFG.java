@@ -29,12 +29,8 @@ public class DatabaseCFG {
     }
 
     public static void dbDisconnect() throws SQLException {
-        try {
-            if (conn != null && !conn.isClosed()) {
-                conn.close();
-            }
-        } catch (Exception e){
-            throw e;
+        if (conn != null && !conn.isClosed()) {
+            conn.close();
         }
     }
 

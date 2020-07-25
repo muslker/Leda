@@ -1,5 +1,6 @@
 package mainMenuF;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,30 +28,42 @@ public class newComponentController implements Initializable {
     @FXML
     public TableColumn<Component, String> nameColumn, valuesColumn, countColumn;
 
-    public void goto_mainPage(ActionEvent event) throws IOException {
-        Parent mainMenuPage = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
-        Scene mainMenuScene = new Scene(mainMenuPage);
-        Stage mainMenuStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        mainMenuStage.setScene(mainMenuScene);
-        mainMenuStage.show();
-    }
-
-    public void addButtonPushed(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+    @FXML
+    public void addButtonPushed() throws SQLException, ClassNotFoundException {
         try {
             ComponentDB.insertComponent(name_CTextF.getText(), value_CTextF.getText(), count_CTextF.getText());
+            searchComponents();
         } catch (SQLException e) {
-            System.out.println("Problem occurred while inserting employee " + e);
+            System.out.println("Problem occurred while inserting component." + e);
             throw e;
         }
     }
 
-    public void deleteButtonPushed(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+    @FXML
+    public void deleteButtonPushed() throws SQLException, ClassNotFoundException {
         try {
-            ComponentDB.deleteComponentwithName(name_CTextF.getText());
+            ComponentDB.deleteComponentwithName(newComponentTableView.getSelectionModel().getSelectedItem().getName());
+            searchComponents();
         } catch (SQLException e) {
-            System.out.println("Problem occurred while deleting employee " + e);
+            System.out.println("Problem occurred while deleting component." + e);
             throw e;
         }
+    }
+
+    @FXML
+    private void searchComponents() throws SQLException, ClassNotFoundException {
+        try {
+            ObservableList<Component> cmpData = ComponentDB.searchComponentS();
+            populateComponents(cmpData);
+        } catch (SQLException e){
+            System.out.println("Error occurred while getting components information from DB." + e);
+            throw e;
+        }
+    }
+
+    @FXML
+    private void populateComponents (ObservableList<Component> cmpData) {
+        newComponentTableView.setItems(cmpData);
     }
 
     @Override
@@ -63,5 +76,19 @@ public class newComponentController implements Initializable {
         countColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
         newComponentTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        try {
+            searchComponents();
+        } catch (SQLException | ClassNotFoundException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void goto_mainPage(ActionEvent event) throws IOException {
+        Parent mainMenuPage = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
+        Scene mainMenuScene = new Scene(mainMenuPage);
+        Stage mainMenuStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        mainMenuStage.setScene(mainMenuScene);
+        mainMenuStage.show();
     }
 }

@@ -11,7 +11,7 @@ _Run -> Edit Configurations -> VM Options_
 
 ##### Environments:
 
-Intellij IDEA 2020.1.3
+Intellij IDEA 2020.1.4
 
 JRE 1.8.0_261
 

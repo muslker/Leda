@@ -35,14 +35,21 @@ public class addValueController implements Initializable {
     @FXML
     public CheckBox visibleCheckBox;
 
-//    public static ObservableList<Component> component = FXCollections.observableArrayList();
+    @FXML
+    public void addButtonPushed() {
+        Values newValues = new Values(visibleCheckBox.isSelected(), addValueTextField.getText());
+        addValueTableView.getItems().add(newValues);
+    }
 
-    public void goto_mainPage(ActionEvent event) throws IOException {
-        Parent mainMenuPage = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
-        Scene mainMenuScene = new Scene(mainMenuPage);
-        Stage mainMenuStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        mainMenuStage.setScene(mainMenuScene);
-        mainMenuStage.show();
+    @FXML
+    public void deleteButtonPushed() {
+        ObservableList<Values> selectedRows, allComponent;
+        allComponent = addValueTableView.getItems();
+
+        selectedRows = addValueTableView.getSelectionModel().getSelectedItems();
+
+        for (Values deletedValues : selectedRows)
+            allComponent.remove(deletedValues);
     }
 
     @Override
@@ -59,19 +66,11 @@ public class addValueController implements Initializable {
         addValueTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
-    public void addButtonPushed() {
-        Values newValues = new Values(visibleCheckBox.isSelected(), addValueTextField.getText());
-        addValueTableView.getItems().add(newValues);
+    @FXML public void goto_mainPage(ActionEvent event) throws IOException {
+        Parent mainMenuPage = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
+        Scene mainMenuScene = new Scene(mainMenuPage);
+        Stage mainMenuStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        mainMenuStage.setScene(mainMenuScene);
+        mainMenuStage.show();
     }
-
-    public void deleteButtonPushed() {
-        ObservableList<Values> selectedRows, allComponent;
-        allComponent = addValueTableView.getItems();
-
-        selectedRows = addValueTableView.getSelectionModel().getSelectedItems();
-
-        for (Values deletedValues : selectedRows)
-            allComponent.remove(deletedValues);
-    }
-
 }
