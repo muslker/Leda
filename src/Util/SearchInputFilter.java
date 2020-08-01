@@ -1,4 +1,4 @@
-package mainMenuF;
+package Util;
 
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
@@ -8,7 +8,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.transformation.FilteredList;
 import javafx.scene.control.ComboBox;
 
-class InputFilter implements ChangeListener<String> {
+public class SearchInputFilter implements ChangeListener<String> {
 
     private final ComboBox<String> box;
     private final FilteredList<String> items;
@@ -16,8 +16,8 @@ class InputFilter implements ChangeListener<String> {
     private final int maxLength;
     private final String restriction;
 
-    public InputFilter(ComboBox<String> box, FilteredList<String> items, boolean upperCase, int maxLength,
-                       String restriction) {
+    public SearchInputFilter(ComboBox<String> box, FilteredList<String> items, boolean upperCase, int maxLength,
+                             String restriction) {
         this.box = box;
         this.items = items;
         this.upperCase = upperCase;
@@ -25,7 +25,7 @@ class InputFilter implements ChangeListener<String> {
         this.restriction = restriction;
     }
 
-    public InputFilter(ComboBox<String> box, FilteredList<String> items, boolean upperCase) {
+    public SearchInputFilter(ComboBox<String> box, FilteredList<String> items, boolean upperCase) {
         this(box, items, upperCase, -1, null);
     }
 

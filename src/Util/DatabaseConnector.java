@@ -1,9 +1,9 @@
-package mainMenuF;
+package Util;
 
 import com.sun.rowset.CachedRowSetImpl;
 import java.sql.*;
 
-public class DatabaseCFG {
+public class DatabaseConnector {
     private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
     private static Connection conn = null;
     private static final String connStr = "jdbc:mysql://root:root@localhost:3306/ledaschema";
@@ -37,7 +37,7 @@ public class DatabaseCFG {
     public static ResultSet dbExecuteQuery(String queryStmt) throws SQLException, ClassNotFoundException {
         Statement stmt = null;
         ResultSet resultSet = null;
-        CachedRowSetImpl crs = null;
+        CachedRowSetImpl crs;
         try {
             dbConnect();
             System.out.println("Select statement: " + queryStmt + "\n");

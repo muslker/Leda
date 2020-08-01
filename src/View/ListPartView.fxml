@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.ListPartController">
+    <Label layoutX="13.0" layoutY="14.0" opacity="0.7" prefHeight="30.0" prefWidth="167.0" text="Parts">
+        <font>
+            <Font name="System Bold" size="20.0" />
+        </font>
+    </Label>
+    <ComboBox fx:id="listPartSearchComboBox" editable="true" layoutX="222.0" layoutY="86.0" prefHeight="30.0" prefWidth="456.0" promptText="Search" />
+    <Button fx:id="deletePartButton" layoutX="724.0" layoutY="32.0" mnemonicParsing="false" onAction="#deletePartButtonPushed" prefHeight="25.0" prefWidth="140.0" text="Delete Part" />
+    <TableView fx:id="listPartTableView" editable="true" layoutX="13.0" layoutY="134.0" prefHeight="382.0" prefWidth="874.0">
+     <columns>
+         <TableColumn fx:id="nameColumn" prefWidth="228.0" text="Name" />
+         <TableColumn fx:id="valuesColumn" prefWidth="594.0" text="Values" />
+         <TableColumn fx:id="countColumn" prefWidth="50.0" text="Count" />
+     </columns>
+   </TableView>
+    <Button fx:id="mainPageButton" alignment="CENTER" layoutX="734.0" layoutY="543.0" mnemonicParsing="false" onAction="#goto_mainPage" prefHeight="30.0" prefWidth="120.0" text="Previous Page" underline="true" />
+</AnchorPane>
