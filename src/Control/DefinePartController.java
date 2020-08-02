@@ -19,6 +19,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import static Control.MainMenuController.filterParts;
 import static DatabaseController.DefinePartDBController.*;
 
 public class DefinePartController implements Initializable {
@@ -32,14 +33,15 @@ public class DefinePartController implements Initializable {
     @FXML
     public Button addPartButton, addRowButton, deleteRowButton, clearButton, prevPageBut;
     @FXML
-    public TextField addPartTextField, countTextField, specTextField, valueTextField;
+    public TextField partNameTextField, countTextField, specTextField, valueTextField;
     @FXML
     public CheckBox visibleCheckBox;
     public int idx = 0, isVisible;
+    public ComboBox<String> definePartComboBox;
 
     public void addPartButtonPushed() throws SQLException, ClassNotFoundException {
         try {
-            insertNameCount(addPartTextField.getText(), Integer.parseInt(countTextField.getText()));
+            insertNameCount(partNameTextField.getText(), Integer.parseInt(countTextField.getText()));
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println("Problem occurred while inserting Part." + e);
             throw e;
@@ -47,7 +49,7 @@ public class DefinePartController implements Initializable {
     }
     public void addRowButtonPushed() throws SQLException, ClassNotFoundException {
         try {
-            idx = getPartID(addPartTextField.getText());
+            idx = getPartID(partNameTextField.getText());
             //  isVisibleIntConverter
             if (visibleCheckBox.isSelected()) isVisible = 1;
             else isVisible = 0;
@@ -70,15 +72,20 @@ public class DefinePartController implements Initializable {
     }
 
     public void clearAllButtonPushed() throws SQLException, ClassNotFoundException {
-        for (int i = 0; i < definePartTableView.getItems().size(); i++){
-            definePartTableView.getSelectionModel().select(i);
-            deleteFeaturewithSpec(definePartTableView.getSelectionModel().getSelectedItem().getSpec());
-        }
-        ListPartDBController.deletePartwithName(addPartTextField.getText());
-        addPartTextField.clear();
+        //  Temporarily disabled
+//        ListPartDBController.deletePartwithName(partNameTextField.getText());
+        partNameTextField.clear();
         countTextField.clear();
         specTextField.clear();
         valueTextField.clear();
+        definePartComboBox.setValue(null);
+        filterParts(definePartComboBox);
+        searchFeatures();
+    }
+
+    public void comboBoxPushed() throws SQLException, ClassNotFoundException {
+        partNameTextField.setText(definePartComboBox.getValue());
+        idx = getPartID(partNameTextField.getText());
         searchFeatures();
     }
 
@@ -105,6 +112,7 @@ public class DefinePartController implements Initializable {
         valueColumn.setCellValueFactory(cellData -> cellData.getValue().valueProperty());
 
         definePartTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        filterParts(definePartComboBox);
     }
 
     public void goto_mainPage(ActionEvent event) throws IOException {

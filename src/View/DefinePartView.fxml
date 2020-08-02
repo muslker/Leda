@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -15,6 +16,8 @@
             <Font name="System Bold" size="20.0" />
         </font>
     </Label>
+    <ComboBox fx:id="definePartComboBox" editable="true" layoutX="297.0" layoutY="32.0" onAction="#comboBoxPushed" prefHeight="25.0" prefWidth="308.0" promptText="Search Part" />
+
     <TableView fx:id="definePartTableView" editable="true" layoutY="165.0" prefHeight="378.0" prefWidth="900.0">
          <columns>
              <TableColumn fx:id="visibilityColumn" prefWidth="60.0" style="-fx-alignment: CENTER;" text="Visibility" />
@@ -22,7 +25,7 @@
              <TableColumn fx:id="valueColumn" minWidth="0.0" prefWidth="420.0" text="Value" />
          </columns>
      </TableView>
-    <TextField fx:id="addPartTextField" layoutX="69.0" layoutY="62.0" prefHeight="30.0" prefWidth="300.0" promptText="Part Name" />
+    <TextField fx:id="partNameTextField" layoutX="69.0" layoutY="62.0" prefHeight="30.0" prefWidth="300.0" promptText="Part Name" />
     <TextField fx:id="countTextField" layoutX="69.0" layoutY="94.0" prefHeight="25.0" prefWidth="45.0" promptText="Count" text="0" />
     <Button fx:id="addRowButton" layoutX="698.0" layoutY="127.0" mnemonicParsing="false" onAction="#addRowButtonPushed" prefHeight="30.0" prefWidth="80.0" text="Add Row" />
       <Button fx:id="deleteRowButton" layoutX="782.0" layoutY="127.0" mnemonicParsing="false" onAction="#deleteRowButtonPushed" prefHeight="30.0" prefWidth="80.0" text="Delete Row" />
@@ -42,4 +45,9 @@
    <CheckBox fx:id="visibleCheckBox" layoutX="29.0" layoutY="127.0" mnemonicParsing="false" prefHeight="30.0" />
    <TextField fx:id="specTextField" layoutX="69.0" layoutY="127.0" prefHeight="30.0" prefWidth="300.0" promptText="Spec" />
    <TextField fx:id="valueTextField" layoutX="384.0" layoutY="127.0" prefHeight="30.0" prefWidth="300.0" promptText="Value" />
+   <Label layoutX="367.0" layoutY="7.0" opacity="0.5" text="Search for Part to add Feature">
+      <font>
+         <Font name="System Italic" size="14.0" />
+      </font>
+   </Label>
 </AnchorPane>

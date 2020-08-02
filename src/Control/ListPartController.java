@@ -20,6 +20,8 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import static Control.MainMenuController.filterParts;
+
 public class ListPartController implements Initializable {
     @FXML
     public Button deletePartButton, mainPageButton;
@@ -39,7 +41,6 @@ public class ListPartController implements Initializable {
             System.out.println("Problem occurred while deleting Part." + e);
             throw e;
         }
-        listPartTableView.refresh();
     }
 
     public void searchParts() throws SQLException, ClassNotFoundException {
@@ -56,7 +57,7 @@ public class ListPartController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        MainMenuController.filterParts(listPartSearchComboBox);
+        filterParts(listPartSearchComboBox);
         listPartTableView.setPlaceholder(new Label("No Parts to display"));
 
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -72,9 +73,7 @@ public class ListPartController implements Initializable {
         } catch (SQLException | ClassNotFoundException throwables) {
             throwables.printStackTrace();
         }
-
     }
-
 
     public void goto_mainPage(ActionEvent event) throws IOException {
         Parent mainMenuPage = FXMLLoader.load(getClass().getResource("../View/MainMenuView.fxml"));

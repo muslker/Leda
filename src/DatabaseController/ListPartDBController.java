@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 public class ListPartDBController {
 
-    //  Search for Item with spesified name
+    //  Search for Part with spesified name
     public static ListPartModel searchPart(String name) throws SQLException, ClassNotFoundException {
         String selectStmt = "SELECT * FROM tbl_part WHERE name='" + name + "'";
         try {
@@ -32,7 +32,7 @@ public class ListPartDBController {
         return part;
     }
 
-    // Search for all Items
+    // Search for all Parts
     public static ObservableList<ListPartModel> searchParts() throws SQLException, ClassNotFoundException {
         String selectStmt = "SELECT * FROM tbl_part";
         try {
@@ -55,7 +55,7 @@ public class ListPartDBController {
             return partList;
         }
 
-    //  Search Item with it's name
+    //  Search Part with it's name
     public static ObservableList<String> searchPartNames() throws SQLException, ClassNotFoundException {
         String selectStmt = "SELECT name FROM tbl_part";
         try {
@@ -75,7 +75,7 @@ public class ListPartDBController {
         return partNames;
     }
 
-    //  Update Item's Count
+    //  Update Part's Count
     public static void updatePartCount(String name, Integer count) throws SQLException, ClassNotFoundException {
         String updateStmt ="UPDATE tbl_part SET count= '" + count + "' WHERE name= '" + name + "'";
         try {
@@ -86,7 +86,7 @@ public class ListPartDBController {
         }
     }
 
-    //  Delete Item with it's name
+    //  Delete Part with it's name
     public static void deletePartwithName(String name) throws SQLException, ClassNotFoundException {
         String updateStmt = "DELETE FROM tbl_part WHERE name='" + name + "'";
         try {
@@ -97,7 +97,7 @@ public class ListPartDBController {
         }
     }
 
-    //  Insert Item
+    //  Insert Part
     public static void insertPart(String name, Integer count) throws SQLException, ClassNotFoundException {
         String updateStmt = "INSERT INTO tbl_part (name, count) VALUES ('" + name + "','" + count + "');";
         try {

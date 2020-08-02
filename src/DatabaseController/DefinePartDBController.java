@@ -10,7 +10,6 @@ import java.sql.SQLException;
 
 public class DefinePartDBController {
 
-    // Once name ve Count insertle, bunların id'sini al, feature'ları insertle
     //  Insert Item
     public static void insertNameCount(String name, Integer count) throws SQLException, ClassNotFoundException {
         String updateStmt = "INSERT INTO tbl_part (name, count) VALUES ('" + name + "','" + count + "');";
@@ -36,6 +35,8 @@ public class DefinePartDBController {
         }
     }
 
+
+    // Insert new Feature
     public static void insertFeatures(Integer part_id, Integer visibility, String spec, String value) throws SQLException, ClassNotFoundException {
         String updateStmt = "INSERT INTO tbl_relation (part_id, visibility, spec, value) VALUES" +
                 " ('" + part_id + "','" + visibility + "','" + spec + "','" + value + "');";
