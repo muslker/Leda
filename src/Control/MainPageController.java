@@ -12,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -19,8 +20,8 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import static DatabaseController.MainPageDBController.visFtr;
 import static DatabaseController.MainPageDBController.searchVisibleFeatures;
+import static DatabaseController.MainPageDBController.visFtr;
 
 public class MainPageController implements Initializable {
 
@@ -30,6 +31,9 @@ public class MainPageController implements Initializable {
     public ComboBox<String> mainMenuSearchComboBox;
     public TableView<MainPageModel> displayFeaturesTableView;
     public TableColumn<MainPageModel, String> displaySpecColumn, displayValueColumn;
+    public MenuBar mainMenuBar;
+    public Menu fileMenuBar, helpMenuBar;
+    public MenuItem exitFileMenuBar, aboutHelpMenuBar;
 
     public void searchFeatures() throws SQLException, ClassNotFoundException {
         try {
@@ -85,6 +89,16 @@ public class MainPageController implements Initializable {
         filterParts(mainMenuSearchComboBox);
     }
 
+    public void exitMenuItem(){ System.exit(0); }
+    public void aboutMenuItem() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("../View/AboutView.fxml"));
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.getIcons().add(new Image(MainPageController.class.getResourceAsStream("../ico.png")));
+        stage.setTitle("About");
+        stage.setScene(scene);
+        stage.show();
+    }
     public void goto_ListPartPage(ActionEvent event) throws IOException {
         Parent ListPartPage = FXMLLoader.load(getClass().getResource("../View/ListPartView.fxml"));
         Scene ListPartScene = new Scene(ListPartPage);
