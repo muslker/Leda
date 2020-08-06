@@ -5,11 +5,11 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class MainMenuModel {
+public class MainPageModel {
     private StringProperty name, spec, value;
     private IntegerProperty count;
 
-    public MainMenuModel() {
+    public MainPageModel() {
         this.name = new SimpleStringProperty();
         this.spec = new SimpleStringProperty();
         this.value = new SimpleStringProperty();

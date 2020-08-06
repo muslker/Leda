@@ -1,4 +1,4 @@
-### Electronic Component Tracker Application
+### Electronic Part Tracker Application
 
 
 
@@ -11,7 +11,7 @@ _Run -> Edit Configurations -> VM Options_
 
 ##### Environments:
 
-Intellij IDEA 2020.1.4
+Intellij IDEA 2020.2
 
 JRE 1.8.0_261
 

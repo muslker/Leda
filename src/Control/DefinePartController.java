@@ -1,17 +1,17 @@
 package Control;
 
 import DatabaseController.DefinePartDBController;
-import DatabaseController.ListPartDBController;
 import Model.DefinePartModel;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -19,26 +19,20 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import static Control.MainMenuController.filterParts;
+import static Control.MainPageController.filterParts;
 import static DatabaseController.DefinePartDBController.*;
 
 public class DefinePartController implements Initializable {
 
-    @FXML
     public TableView<DefinePartModel> definePartTableView;
-    @FXML
     public TableColumn<DefinePartModel, Boolean> visibilityColumn;
-    @FXML
     public TableColumn<DefinePartModel, String> valueColumn, specColumn;
-    @FXML
-    public Button addPartButton, addRowButton, deleteRowButton, clearButton, prevPageBut;
-    @FXML
+    public Button addPartButton, addRowButton, deleteRowButton, clearButton, prevPageBut, updateButton;
     public TextField partNameTextField, countTextField, specTextField, valueTextField;
-    @FXML
     public CheckBox visibleCheckBox;
     public int idx = 0, isVisible;
     public ComboBox<String> definePartComboBox;
-
+    public String oldVal = null, oldSpec = null;
     public void addPartButtonPushed() throws SQLException, ClassNotFoundException {
         try {
             insertNameCount(partNameTextField.getText(), Integer.parseInt(countTextField.getText()));
@@ -53,7 +47,6 @@ public class DefinePartController implements Initializable {
             //  isVisibleIntConverter
             if (visibleCheckBox.isSelected()) isVisible = 1;
             else isVisible = 0;
-            // Checkbox değerininin true/false durumunu kontrol et
             if (specTextField.getText().equals("")) insertFeatures(idx, 0, "*", "*");
             else if (valueTextField.getText().equals("")) insertFeatures(idx, isVisible, specTextField.getText(), "*");
             else insertFeatures(idx, isVisible, specTextField.getText(), valueTextField.getText());
@@ -69,18 +62,33 @@ public class DefinePartController implements Initializable {
     public void deleteRowButtonPushed() throws SQLException, ClassNotFoundException {
         deleteFeaturewithSpec(definePartTableView.getSelectionModel().getSelectedItem().getSpec());
         searchFeatures();
+        specTextField.clear();
+        valueTextField.clear();
     }
 
     public void clearAllButtonPushed() throws SQLException, ClassNotFoundException {
-        //  Temporarily disabled
-//        ListPartDBController.deletePartwithName(partNameTextField.getText());
         partNameTextField.clear();
         countTextField.clear();
         specTextField.clear();
         valueTextField.clear();
         definePartComboBox.setValue(null);
-        filterParts(definePartComboBox);
         searchFeatures();
+    }
+
+    public void getOldSpecData(){
+        oldSpec = definePartTableView.getSelectionModel().getSelectedItem().getSpec();
+    }
+    public void setNewSpecData(TableColumn.CellEditEvent<DefinePartModel, String> specStrCellEdit) throws SQLException, ClassNotFoundException {
+        definePartTableView.getSelectionModel().getSelectedItem().setSpec(specStrCellEdit.getNewValue());
+        updateSpecData(specStrCellEdit.getNewValue(), oldSpec);
+    }
+
+    public void getOldValueData(){
+        oldVal = definePartTableView.getSelectionModel().getSelectedItem().getDefineItemValue();
+    }
+    public void setNewValueData(TableColumn.CellEditEvent<DefinePartModel, String> valStrCellEdit) throws SQLException, ClassNotFoundException {
+        definePartTableView.getSelectionModel().getSelectedItem().setValue(valStrCellEdit.getNewValue());
+        updateValueData(valStrCellEdit.getNewValue(), oldVal);
     }
 
     public void comboBoxPushed() throws SQLException, ClassNotFoundException {
@@ -111,15 +119,19 @@ public class DefinePartController implements Initializable {
         specColumn.setCellValueFactory(cellData -> cellData.getValue().specProperty());
         valueColumn.setCellValueFactory(cellData -> cellData.getValue().valueProperty());
 
+        specColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        valueColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+
+        definePartTableView.editingCellProperty();
         definePartTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         filterParts(definePartComboBox);
     }
 
     public void goto_mainPage(ActionEvent event) throws IOException {
-        Parent mainMenuPage = FXMLLoader.load(getClass().getResource("../View/MainMenuView.fxml"));
-        Scene mainMenuScene = new Scene(mainMenuPage);
-        Stage mainMenuStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        mainMenuStage.setScene(mainMenuScene);
-        mainMenuStage.show();
+        Parent mainPage = FXMLLoader.load(getClass().getResource("../View/MainPageView.fxml"));
+        Scene mainPageScene = new Scene(mainPage);
+        Stage mainPageStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        mainPageStage.setScene(mainPageScene);
+        mainPageStage.show();
     }
 }

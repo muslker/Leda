@@ -1,6 +1,6 @@
 package Util;
 
-import com.sun.rowset.CachedRowSetImpl;
+import javax.sql.rowset.*;
 import java.sql.*;
 
 public class DatabaseConnector {
@@ -37,7 +37,7 @@ public class DatabaseConnector {
     public static ResultSet dbExecuteQuery(String queryStmt) throws SQLException, ClassNotFoundException {
         Statement stmt = null;
         ResultSet resultSet = null;
-        CachedRowSetImpl crs;
+        CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet();
         try {
             dbConnect();
             System.out.println("Select statement: " + queryStmt + "\n");
@@ -45,7 +45,6 @@ public class DatabaseConnector {
             stmt = conn.createStatement();
             resultSet = stmt.executeQuery(queryStmt);
 
-            crs = new CachedRowSetImpl();
             crs.populate(resultSet);
         } catch (SQLException e) {
             System.out.println("Problem occurred at executeQuery operation : " + e);

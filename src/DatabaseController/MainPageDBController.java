@@ -1,5 +1,5 @@
 package DatabaseController;
-import Model.MainMenuModel;
+import Model.MainPageModel;
 import Util.DatabaseConnector;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -7,12 +7,12 @@ import javafx.collections.ObservableList;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class MainMenuDBController {
-    public static ObservableList<MainMenuModel> visibleFeature;
-    public static MainMenuModel visFtr;
+public class MainPageDBController {
+    public static ObservableList<MainPageModel> visibleFeature;
+    public static MainPageModel visFtr;
 
     // Search for selected Part's visible Features
-    public static ObservableList<MainMenuModel> searchVisibleFeatures(String name) throws SQLException, ClassNotFoundException {
+    public static ObservableList<MainPageModel> searchVisibleFeatures(String name) throws SQLException, ClassNotFoundException {
         String selectStmt = "SELECT tbl_part.name, tbl_part.count, tbl_relation.spec, tbl_relation.value FROM tbl_part, tbl_relation " +
                 "WHERE tbl_part.name= '" + name + "' AND (tbl_part.part_id = tbl_relation.part_id) AND tbl_relation.visibility = '1'";
         try {
@@ -24,10 +24,10 @@ public class MainMenuDBController {
         }
     }
 
-    public static ObservableList<MainMenuModel> getVisibleFeature(ResultSet rs) throws SQLException {
+    public static ObservableList<MainPageModel> getVisibleFeature(ResultSet rs) throws SQLException {
         visibleFeature = FXCollections.observableArrayList();
         while (rs.next()) {
-            visFtr = new MainMenuModel();
+            visFtr = new MainPageModel();
             visFtr.setName(rs.getString("name"));
             visFtr.setSpec(rs.getString("spec"));
             visFtr.setValue(rs.getString("value"));

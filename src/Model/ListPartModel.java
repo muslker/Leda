@@ -1,33 +1,40 @@
 package Model;
 
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 public class ListPartModel {
 
-    private final SimpleStringProperty name, value;
-    public SimpleIntegerProperty count;
+    private StringProperty name, spec, value;
+    private IntegerProperty count;
 
     public ListPartModel() {
         this.name = new SimpleStringProperty();
+        this.spec = new SimpleStringProperty();
         this.value = new SimpleStringProperty();
         this.count = new SimpleIntegerProperty();
     }
 
-    public String getName() {   return name.get();  }
+    //  Name
+    public String getName() {return name.get(); }
+    public void setName(String name) { this.name = new SimpleStringProperty(name); }
+    public StringProperty nameProperty() { return name; }
 
-    public void setName(String name) { this.name.setValue(name); }
+    //  Spec
+    public String getSpec() {  return spec.get(); }
+    public void setSpec(String spec) {    this.spec = new SimpleStringProperty(spec); }
+    public StringProperty specProperty() { return spec; }
 
-    public String getValue() {  return value.get(); }
+    //      Value
+    public String getVal() {  return value.get(); }
+    public void setVal(String value) {    this.value = new SimpleStringProperty(value); }
+    public StringProperty valProperty() { return value; }
 
-    public void setValue(String value) {
-        this.value.setValue(value);
-    }
+    //  Count
+    public int getCount() {return count.get(); }
+    public void setCount (int count) { this.count = new SimpleIntegerProperty(count); }
+    public IntegerProperty countProperty() { return count; }
 
-    public Integer getCount() { return count.get(); }
-    public void setCount(Integer count) { this.count.setValue(count); }
-
-//    public static void ItemList() {
-//        for (Component item : compTable.getItems()) itemsXX.add(nameColumn.getCellObservableValue(item).getValue());
-//    }
 }

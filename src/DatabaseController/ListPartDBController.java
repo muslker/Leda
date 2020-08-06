@@ -97,14 +97,28 @@ public class ListPartDBController {
         }
     }
 
-    //  Insert Part
-    public static void insertPart(String name, Integer count) throws SQLException, ClassNotFoundException {
-        String updateStmt = "INSERT INTO tbl_part (name, count) VALUES ('" + name + "','" + count + "');";
+
+
+    // Search for all Specs
+    public static ObservableList<ListPartModel> searchSpecs() throws SQLException, ClassNotFoundException {
+        String selectStmt = "SELECT spec FROM tbl_relation";
         try {
-            DatabaseConnector.dbExecuteUpdate(updateStmt);
+            ResultSet rsSpecs = DatabaseConnector.dbExecuteQuery(selectStmt);
+            return getSpecList(rsSpecs);
         } catch (SQLException e) {
-            System.out.print("Error occurred while INSERT Operation: " + e);
+            System.out.println("SQL select operation has been failed: " + e);
             throw e;
         }
     }
+
+    public static ObservableList<ListPartModel> getSpecList(ResultSet rs) throws SQLException {
+        ObservableList<ListPartModel> specList = FXCollections.observableArrayList();
+        while (rs.next()) {
+            ListPartModel spec = new ListPartModel();
+            spec.setSpec(rs.getString("spec"));
+            specList.add(spec);
+        }
+        return specList;
+    }
+
 }

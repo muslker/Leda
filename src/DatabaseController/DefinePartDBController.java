@@ -65,7 +65,6 @@ public class DefinePartDBController {
         ObservableList<DefinePartModel> featureList = FXCollections.observableArrayList();
         while (rs.next()) {
             DefinePartModel feature = new DefinePartModel();
-//            feature.setVisibility(rs.getInt("visibility"));
             feature.setVisibility(rs.getInt("visibility") == 1);
             feature.setSpec(rs.getString("spec"));
             feature.setValue(rs.getString("value"));
@@ -84,4 +83,26 @@ public class DefinePartDBController {
             throw e;
         }
     }
+
+    //  Update Part's Spec
+    public static void updateSpecData(String newSpec, String oldSpec) throws SQLException, ClassNotFoundException {
+        String updateStmt ="UPDATE tbl_relation SET spec= '" + newSpec + "' WHERE spec= '" + oldSpec + "'";
+        try {
+            DatabaseConnector.dbExecuteUpdate(updateStmt);
+        } catch (SQLException e) {
+            System.out.print("Error occurred while UPDATE Operation: " + e);
+            throw e;
+        }
+    }
+    //  Update Part's Value
+    public static void updateValueData(String newVal, String oldVal) throws SQLException, ClassNotFoundException {
+        String updateStmt ="UPDATE tbl_relation SET value= '" + newVal + "' WHERE value= '" + oldVal + "'";
+        try {
+            DatabaseConnector.dbExecuteUpdate(updateStmt);
+        } catch (SQLException e) {
+            System.out.print("Error occurred while UPDATE Operation: " + e);
+            throw e;
+        }
+    }
+
 }
