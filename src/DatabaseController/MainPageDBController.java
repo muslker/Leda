@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import static Util.LogHandler.logger;
 
 public class MainPageDBController {
     public static ObservableList<MainPageModel> visibleFeature;
@@ -17,8 +18,10 @@ public class MainPageDBController {
                 "WHERE tbl_part.name= '" + name + "' AND (tbl_part.part_id = tbl_relation.part_id) AND tbl_relation.visibility = '1'";
         try {
             ResultSet rsVisibleFeature = DatabaseConnector.dbExecuteQuery(selectStmt);
+            logger.info("Successfully searched for selected Part's visible Features.");
             return getVisibleFeature(rsVisibleFeature);
         } catch (SQLException e) {
+            logger.warning("SQL select operation has been failed: " + e);
             System.out.println("SQL select operation has been failed: " + e);
             throw e;
         }

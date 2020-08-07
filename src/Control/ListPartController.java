@@ -18,6 +18,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import static Util.LogHandler.logger;
 
 import static Control.MainPageController.filterParts;
 
@@ -34,6 +35,7 @@ public class ListPartController implements Initializable {
             ListPartDBController.deletePartwithName(listPartTableView.getSelectionModel().getSelectedItem().getName());
             searchParts();
         } catch (SQLException e) {
+            logger.warning("Problem occurred while deleting Part. = " + e);
             System.out.println("Problem occurred while deleting Part." + e);
             throw e;
         }
@@ -44,6 +46,7 @@ public class ListPartController implements Initializable {
             ObservableList<ListPartModel> partData = ListPartDBController.searchParts();
             populateParts(partData);
         } catch (SQLException e){
+            logger.warning("Error occurred while getting Part information from DB. = " + e);
             System.out.println("Error occurred while getting Part information from DB." + e);
             throw e;
         }
@@ -64,20 +67,32 @@ public class ListPartController implements Initializable {
             ObservableList<ListPartModel> specData = ListPartDBController.searchSpecs();
             List<String> specList = new ArrayList<>();
             List<String> valList = new ArrayList<>();
-//            Map<String, ArrayList<String>> testmap = new HashMap<>();
-//            testmap.put();
-            for (ListPartModel specDt : specData)
+            for (ListPartModel specDt : specData) {
+                valList.add(specDt.getVal());
                 if (specList.contains(specDt.getSpec())) System.out.println("Column already exist");
                 else specList.add(specDt.getSpec());
+            }
 
+            for (String s : specList)
+            {
+                TableColumn<ListPartModel,String> _test = new TableColumn<>(s);
+                _test.setCellValueFactory(cellData -> cellData.getValue().valProperty());
+                specColumn.getColumns().add(_test);
+            }
+            for (int i = 0; i < valList.size(); i++) {
+                specColumn.getColumns().get(i).setUserData(valList.get(i));
 
-            for (String s : specList) specColumn.getColumns().add(new TableColumn<ListPartModel, String>(s));
+            }
+//            for (String s : specList) specColumn.getColumns().add(new TableColumn<ListPartModel, String>(s));
+//            specColumn.getColumns().
 
             searchParts();
 
         } catch (SQLException | ClassNotFoundException throwables) {
+            logger.warning("Exception occurred = " + throwables);
             throwables.printStackTrace();
         }
+        logger.info("ListPart page loaded.");
     }
 
     public void goto_mainPage(ActionEvent event) throws IOException {

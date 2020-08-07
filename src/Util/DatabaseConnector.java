@@ -2,6 +2,7 @@ package Util;
 
 import javax.sql.rowset.*;
 import java.sql.*;
+import static Util.LogHandler.logger;
 
 public class DatabaseConnector {
     private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
@@ -12,16 +13,16 @@ public class DatabaseConnector {
         try {
             Class.forName(JDBC_DRIVER);
         } catch (ClassNotFoundException e) {
-            System.out.println("JDBC Driver not found.");
+            logger.warning("JDBC Driver not found." + e);
+            System.out.println("JDBC Driver not found." + e);
             e.printStackTrace();
             throw e;
         }
 
-        System.out.println("Successful.");
-
         try {
             conn = DriverManager.getConnection(connStr);
         } catch (SQLException e) {
+            logger.warning("Connection Failed! Check output console" + e);
             System.out.println("Connection Failed! Check output console" + e);
             e.printStackTrace();
             throw e;
@@ -40,13 +41,13 @@ public class DatabaseConnector {
         CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet();
         try {
             dbConnect();
-            System.out.println("Select statement: " + queryStmt + "\n");
 
             stmt = conn.createStatement();
             resultSet = stmt.executeQuery(queryStmt);
 
             crs.populate(resultSet);
         } catch (SQLException e) {
+            logger.warning("Problem occurred at executeQuery operation : " + e);
             System.out.println("Problem occurred at executeQuery operation : " + e);
             throw e;
         } finally {
@@ -68,6 +69,7 @@ public class DatabaseConnector {
             stmt = conn.createStatement();
             stmt.executeUpdate(sqlStmt);
         } catch (SQLException e) {
+            logger.warning("Problem occurred at executeUpdate operation : " + e);
             System.out.println("Problem occurred at executeUpdate operation : " + e);
             throw e;
         } finally {

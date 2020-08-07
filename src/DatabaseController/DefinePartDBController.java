@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import static Util.LogHandler.logger;
 
 public class DefinePartDBController {
 
@@ -15,7 +16,9 @@ public class DefinePartDBController {
         String updateStmt = "INSERT INTO tbl_part (name, count) VALUES ('" + name + "','" + count + "');";
         try {
             DatabaseConnector.dbExecuteUpdate(updateStmt);
+            logger.info("Part name and count successfully inserted to DB.");
         } catch (SQLException e) {
+            logger.warning("Error occurred while INSERT Operation: " + e);
             System.out.print("Error occurred while INSERT Operation: " + e);
             throw e;
         }
@@ -28,13 +31,14 @@ public class DefinePartDBController {
             while (rsItem.next()) {
                 idx = rsItem.getInt("part_id");
             }
+            logger.info("Part ID searched from DB successfully.");
             return idx;
         } catch (SQLException e) {
+            logger.warning("While searching an Part with " + name + " name, an error occurred: " + e);
             System.out.println("While searching an Part with " + name + " name, an error occurred: " + e);
             throw e;
         }
     }
-
 
     // Insert new Feature
     public static void insertFeatures(Integer part_id, Integer visibility, String spec, String value) throws SQLException, ClassNotFoundException {
@@ -42,25 +46,27 @@ public class DefinePartDBController {
                 " ('" + part_id + "','" + visibility + "','" + spec + "','" + value + "');";
         try {
             DatabaseConnector.dbExecuteUpdate(updateStmt);
+            logger.info("Part features inserted DB successfully.");
         } catch (SQLException e) {
+            logger.warning("Error occurred while INSERT Operation: " + e);
             System.out.print("Error occurred while INSERT Operation: " + e);
             throw e;
         }
     }
-
 
     // Search for specific Part's Feature
     public static ObservableList<DefinePartModel> searchFeature(int id) throws SQLException, ClassNotFoundException {
         String selectStmt = "SELECT * FROM tbl_relation WHERE part_id='" + id + "'";
         try {
             ResultSet rsFeature = DatabaseConnector.dbExecuteQuery(selectStmt);
+            logger.info("Features searched successfully.");
             return getFeatureList(rsFeature);
         } catch (SQLException e) {
+            logger.warning("SQL select operation has been failed: " + e);
             System.out.println("SQL select operation has been failed: " + e);
             throw e;
         }
     }
-
     public static ObservableList<DefinePartModel> getFeatureList(ResultSet rs) throws SQLException {
         ObservableList<DefinePartModel> featureList = FXCollections.observableArrayList();
         while (rs.next()) {
@@ -78,8 +84,10 @@ public class DefinePartDBController {
         String updateStmt = "DELETE FROM tbl_relation WHERE spec='" + spec + "'";
         try {
             DatabaseConnector.dbExecuteUpdate(updateStmt);
+            logger.info("Features deleted successfully.");
         } catch (SQLException e) {
-            System.out.print("Error occurred while DELETE Operation: " + e);
+            logger.warning("Error occurred while DELETE Feature Operation: " + e);
+            System.out.print("Error occurred while DELETE Feature Operation: " + e);
             throw e;
         }
     }
@@ -89,8 +97,10 @@ public class DefinePartDBController {
         String updateStmt ="UPDATE tbl_relation SET spec= '" + newSpec + "' WHERE spec= '" + oldSpec + "'";
         try {
             DatabaseConnector.dbExecuteUpdate(updateStmt);
+            logger.info("Spec updated successfully.");
         } catch (SQLException e) {
-            System.out.print("Error occurred while UPDATE Operation: " + e);
+            logger.warning("Error occurred while UPDATE Spec Operation: " + e);
+            System.out.print("Error occurred while UPDATE Spec Operation: " + e);
             throw e;
         }
     }
@@ -99,8 +109,10 @@ public class DefinePartDBController {
         String updateStmt ="UPDATE tbl_relation SET value= '" + newVal + "' WHERE value= '" + oldVal + "'";
         try {
             DatabaseConnector.dbExecuteUpdate(updateStmt);
+            logger.info("Value updated successfully.");
         } catch (SQLException e) {
-            System.out.print("Error occurred while UPDATE Operation: " + e);
+            logger.warning("Error occurred while UPDATE Value Operation: " + e);
+            System.out.print("Error occurred while UPDATE Value Operation: " + e);
             throw e;
         }
     }

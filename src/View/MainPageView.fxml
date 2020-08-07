@@ -50,11 +50,13 @@
       </font>
    </Label>
     <MenuBar fx:id="mainMenuBar" layoutX="-1.0" layoutY="2.0" prefHeight="25.0" prefWidth="900.0">
-        <Menu fx:id="fileMenuBar" mnemonicParsing="false" text="File">
-            <MenuItem fx:id="exitFileMenuBar" mnemonicParsing="false" onAction="#exitMenuItem" text="Exit" />
+        <Menu fx:id="fileMenu" mnemonicParsing="false" text="File">
+            <MenuItem fx:id="exitMenuItem" mnemonicParsing="false" onAction="#exitMenuItem" text="Exit" />
+            <MenuItem fx:id="exportMenuItem" mnemonicParsing="false" text="Export Data" />
+            <MenuItem fx:id="importMenuItem" mnemonicParsing="false" text="Import Data" />
         </Menu>
-        <Menu fx:id="helpMenuBar" mnemonicParsing="false" text="Help">
-            <MenuItem fx:id="aboutHelpMenuBar" mnemonicParsing="false" onAction="#aboutMenuItem" text="About" />
+        <Menu fx:id="helpMenu" mnemonicParsing="false" text="Help">
+            <MenuItem fx:id="aboutMenuItem" mnemonicParsing="false" onAction="#aboutMenuItem" text="About" />
         </Menu>
     </MenuBar>
 </AnchorPane>

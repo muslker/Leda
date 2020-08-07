@@ -20,6 +20,9 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import static Util.LogHandler.fh;
+import static Util.LogHandler.logger;
+
 import static DatabaseController.MainPageDBController.searchVisibleFeatures;
 import static DatabaseController.MainPageDBController.visFtr;
 
@@ -32,8 +35,8 @@ public class MainPageController implements Initializable {
     public TableView<MainPageModel> displayFeaturesTableView;
     public TableColumn<MainPageModel, String> displaySpecColumn, displayValueColumn;
     public MenuBar mainMenuBar;
-    public Menu fileMenuBar, helpMenuBar;
-    public MenuItem exitFileMenuBar, aboutHelpMenuBar;
+    public Menu fileMenu, helpMenu;
+    public MenuItem exitMenuItem, aboutMenuItem, exportMenuItem, importMenuItem;
 
     public void searchFeatures() throws SQLException, ClassNotFoundException {
         try {
@@ -42,6 +45,7 @@ public class MainPageController implements Initializable {
             summaryCountTextF.setText(String.valueOf(visFtr.getCount()));
             populateFeatures(ftrData);
         } catch (SQLException e){
+            logger.warning("Error occurred while getting Part Feature information from DB." + e);
             System.out.println("Error occurred while getting Part Feature information from DB." + e);
             throw e;
         }
@@ -56,6 +60,7 @@ public class MainPageController implements Initializable {
         increaseCount +=  Integer.parseInt(incDecTextField.getText());
         ListPartDBController.updatePartCount(mainMenuSearchComboBox.getValue(), increaseCount);
         summaryCountTextF.setText(String.valueOf(ListPartDBController.searchPart(mainMenuSearchComboBox.getValue()).getCount()));
+        logger.info(mainMenuSearchComboBox.getValue() + "'s count increased by " + incDecTextField.getText());
     }
 
     public void decreaseCountPressed() throws SQLException, ClassNotFoundException {
@@ -63,6 +68,7 @@ public class MainPageController implements Initializable {
         decreaseCount -=  Integer.parseInt(incDecTextField.getText());
         ListPartDBController.updatePartCount(mainMenuSearchComboBox.getValue(), decreaseCount);
         summaryCountTextF.setText(String.valueOf(ListPartDBController.searchPart(mainMenuSearchComboBox.getValue()).getCount()));
+        logger.info(mainMenuSearchComboBox.getValue() + "'s count decreased by " + incDecTextField.getText());
     }
 
     public static void filterParts(ComboBox<String> searchCombo){
@@ -87,14 +93,19 @@ public class MainPageController implements Initializable {
         displayValueColumn.setCellValueFactory(cellData -> cellData.getValue().valueProperty());
 
         filterParts(mainMenuSearchComboBox);
+        logger.info("Main page loaded.");
     }
 
-    public void exitMenuItem(){ System.exit(0); }
+    public void exitMenuItem(){
+        System.exit(0);
+        fh.close();
+    }
+
     public void aboutMenuItem() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("../View/AboutView.fxml"));
         Scene scene = new Scene(root);
         Stage stage = new Stage();
-        stage.getIcons().add(new Image(MainPageController.class.getResourceAsStream("../ico.png")));
+        stage.getIcons().add(new Image(MainPageController.class.getResourceAsStream("../icon.png")));
         stage.setTitle("About");
         stage.setScene(scene);
         stage.show();
