@@ -10,10 +10,10 @@ public class LogHandler {
     public static FileHandler fh = null;
 
     public static void init() throws IOException {
-        fh = new FileHandler("log/TestLog.txt");
+        fh = new FileHandler("log/EPT_Log.txt");
         fh.setFormatter(new SimpleFormatter());
         logger.addHandler(fh);
-        logger.info("starting");
+        logger.info("App Started Successfully.");
     }
 }
 

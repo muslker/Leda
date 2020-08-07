@@ -20,11 +20,11 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import static Util.LogHandler.fh;
-import static Util.LogHandler.logger;
-
 import static DatabaseController.MainPageDBController.searchVisibleFeatures;
 import static DatabaseController.MainPageDBController.visFtr;
+import static Util.Exporter.ExcelExporter;
+import static Util.LogHandler.fh;
+import static Util.LogHandler.logger;
 
 public class MainPageController implements Initializable {
 
@@ -101,6 +101,9 @@ public class MainPageController implements Initializable {
         fh.close();
     }
 
+    public void exportDB() throws SQLException, IOException, ClassNotFoundException {
+        ExcelExporter();
+    }
     public void aboutMenuItem() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("../View/AboutView.fxml"));
         Scene scene = new Scene(root);
