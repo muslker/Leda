@@ -9,12 +9,14 @@ public class ListPartModel {
 
     private StringProperty name, spec, value;
     private IntegerProperty count;
+    private final SimpleIntegerProperty id;
 
     public ListPartModel() {
         this.name = new SimpleStringProperty();
         this.spec = new SimpleStringProperty();
         this.value = new SimpleStringProperty();
         this.count = new SimpleIntegerProperty();
+        this.id = new SimpleIntegerProperty();
     }
 
     //  Name
@@ -37,4 +39,10 @@ public class ListPartModel {
     public void setCount (int count) { this.count = new SimpleIntegerProperty(count); }
     public IntegerProperty countProperty() { return count; }
 
+    //  ID
+    public int getId() { return id.get(); }
+    public void setId(int id){ this.id.set(id); }
+    public IntegerProperty idProperty(){
+        return id;
+    }
 }

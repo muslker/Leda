@@ -15,25 +15,21 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
-import static Util.LogHandler.logger;
 
-import static Control.MainPageController.filterParts;
+import static Util.LogHandler.logger;
 
 public class ListPartController implements Initializable {
     public Button deletePartButton, mainPageButton;
     public TableView<ListPartModel> listPartTableView;
     public TableColumn<ListPartModel, Integer> countColumn;
-    public TableColumn<ListPartModel, String> nameColumn, specColumn;
-    public ComboBox<String> listPartSearchComboBox;
-
+    public TableColumn<ListPartModel, String> nameColumn;
+    public TableColumn<ListPartModel, String> specColumn;
 
     public void deletePartButtonPushed() throws SQLException, ClassNotFoundException {
         try {
             ListPartDBController.deletePartwithName(listPartTableView.getSelectionModel().getSelectedItem().getName());
-            searchParts();
+            listAllParts();
         } catch (SQLException e) {
             logger.warning("Problem occurred while deleting Part. = " + e);
             System.out.println("Problem occurred while deleting Part." + e);
@@ -41,9 +37,9 @@ public class ListPartController implements Initializable {
         }
     }
 
-    public void searchParts() throws SQLException, ClassNotFoundException {
+    public void listAllParts() throws SQLException, ClassNotFoundException {
         try {
-            ObservableList<ListPartModel> partData = ListPartDBController.searchParts();
+            ObservableList<ListPartModel> partData = ListPartDBController.listAllParts();
             populateParts(partData);
         } catch (SQLException e){
             logger.warning("Error occurred while getting Part information from DB. = " + e);
@@ -56,38 +52,14 @@ public class ListPartController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        filterParts(listPartSearchComboBox);
         listPartTableView.setPlaceholder(new Label("No Parts to display"));
 
         countColumn.setCellValueFactory(cellData -> cellData.getValue().countProperty().asObject());
         nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-        specColumn.setCellValueFactory(cellData -> cellData.getValue().specProperty());
+        specColumn.setCellValueFactory(cd -> cd.getValue().valProperty());
 
         try {
-            ObservableList<ListPartModel> specData = ListPartDBController.searchSpecs();
-            List<String> specList = new ArrayList<>();
-            List<String> valList = new ArrayList<>();
-            for (ListPartModel specDt : specData) {
-                valList.add(specDt.getVal());
-                if (specList.contains(specDt.getSpec())) System.out.println("Column already exist");
-                else specList.add(specDt.getSpec());
-            }
-
-            for (String s : specList)
-            {
-                TableColumn<ListPartModel,String> _test = new TableColumn<>(s);
-                _test.setCellValueFactory(cellData -> cellData.getValue().valProperty());
-                specColumn.getColumns().add(_test);
-            }
-            for (int i = 0; i < valList.size(); i++) {
-                specColumn.getColumns().get(i).setUserData(valList.get(i));
-
-            }
-//            for (String s : specList) specColumn.getColumns().add(new TableColumn<ListPartModel, String>(s));
-//            specColumn.getColumns().
-
-            searchParts();
-
+            listAllParts();
         } catch (SQLException | ClassNotFoundException throwables) {
             logger.warning("Exception occurred = " + throwables);
             throwables.printStackTrace();
