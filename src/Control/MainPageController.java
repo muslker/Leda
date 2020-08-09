@@ -38,13 +38,20 @@ public class MainPageController implements Initializable {
     public Menu fileMenu, helpMenu;
     public MenuItem exitMenuItem, aboutMenuItem, exportMenuItem, importMenuItem;
 
-    public void searchFeatures() throws SQLException, ClassNotFoundException {
+    public void searchFeatures() throws SQLException, ClassNotFoundException, NullPointerException {
         try {
-            ObservableList<MainPageModel> ftrData = searchVisibleFeatures(mainMenuSearchComboBox.getValue());
-            summaryNameTextF.setText(visFtr.getName());
-            summaryCountTextF.setText(String.valueOf(visFtr.getCount()));
-            populateFeatures(ftrData);
-        } catch (SQLException e){
+            if (mainMenuSearchComboBox.getSelectionModel().isEmpty())
+                mainMenuSearchComboBox.getSelectionModel().clearSelection();
+            else {
+                ObservableList<MainPageModel> ftrData = searchVisibleFeatures(mainMenuSearchComboBox.getValue());
+                if (ftrData.isEmpty()) System.out.println("Data list is empty.");
+                else {
+                    summaryNameTextF.setText(visFtr.getName());
+                    summaryCountTextF.setText(String.valueOf(visFtr.getCount()));
+                    populateFeatures(ftrData);
+                }
+            }
+        } catch (SQLException | ClassNotFoundException | NullPointerException e){
             logger.warning("Error occurred while getting Part Feature information from DB." + e);
             System.out.println("Error occurred while getting Part Feature information from DB." + e);
             throw e;
@@ -56,19 +63,27 @@ public class MainPageController implements Initializable {
     }
 
     public void increaseCountPressed() throws SQLException, ClassNotFoundException {
-        int increaseCount = MainPageDBController.searchPart(mainMenuSearchComboBox.getValue()).getCount();
-        increaseCount +=  Integer.parseInt(incDecTextField.getText());
-        MainPageDBController.updatePartCount(mainMenuSearchComboBox.getValue(), increaseCount);
-        summaryCountTextF.setText(String.valueOf(MainPageDBController.searchPart(mainMenuSearchComboBox.getValue()).getCount()));
-        logger.info(mainMenuSearchComboBox.getValue() + "'s count increased by " + incDecTextField.getText());
+        if (mainMenuSearchComboBox.getSelectionModel().isEmpty())
+            System.out.println("Please select a part.");
+        else {
+            int increaseCount = MainPageDBController.searchPart(mainMenuSearchComboBox.getValue()).getCount();
+            increaseCount += Integer.parseInt(incDecTextField.getText());
+            MainPageDBController.updatePartCount(mainMenuSearchComboBox.getValue(), increaseCount);
+            summaryCountTextF.setText(String.valueOf(MainPageDBController.searchPart(mainMenuSearchComboBox.getValue()).getCount()));
+            logger.info(mainMenuSearchComboBox.getValue() + "'s count increased by " + incDecTextField.getText());
+        }
     }
 
     public void decreaseCountPressed() throws SQLException, ClassNotFoundException {
-        int decreaseCount = MainPageDBController.searchPart(mainMenuSearchComboBox.getValue()).getCount();
-        decreaseCount -=  Integer.parseInt(incDecTextField.getText());
-        MainPageDBController.updatePartCount(mainMenuSearchComboBox.getValue(), decreaseCount);
-        summaryCountTextF.setText(String.valueOf(MainPageDBController.searchPart(mainMenuSearchComboBox.getValue()).getCount()));
-        logger.info(mainMenuSearchComboBox.getValue() + "'s count decreased by " + incDecTextField.getText());
+        if (mainMenuSearchComboBox.getSelectionModel().isEmpty())
+            System.out.println("Please select a part.");
+        else {
+            int decreaseCount = MainPageDBController.searchPart(mainMenuSearchComboBox.getValue()).getCount();
+            decreaseCount -= Integer.parseInt(incDecTextField.getText());
+            MainPageDBController.updatePartCount(mainMenuSearchComboBox.getValue(), decreaseCount);
+            summaryCountTextF.setText(String.valueOf(MainPageDBController.searchPart(mainMenuSearchComboBox.getValue()).getCount()));
+            logger.info(mainMenuSearchComboBox.getValue() + "'s count decreased by " + incDecTextField.getText());
+        }
     }
 
     public static void filterParts(ComboBox<String> searchCombo){
@@ -97,8 +112,8 @@ public class MainPageController implements Initializable {
     }
 
     public void exitMenuItem(){
-        System.exit(0);
         fh.close();
+        System.exit(0);
     }
 
     public void exportDB() throws SQLException, IOException, ClassNotFoundException {

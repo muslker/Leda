@@ -10,11 +10,6 @@ import java.io.IOException;
 
 public class Main extends Application {
 
-    public static void main(String[] args) throws IOException {
-        LogHandler.init();
-        launch(args);
-    }
-
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("View/MainPageView.fxml"));
@@ -23,5 +18,10 @@ public class Main extends Application {
         stage.setTitle("Electronical Part Tracker");
         stage.setScene(mainScene);
         stage.show();
+    }
+
+    public static void main(String[] args) throws IOException {
+        LogHandler.init();
+        launch(args);
     }
 }

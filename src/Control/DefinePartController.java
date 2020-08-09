@@ -41,6 +41,7 @@ public class DefinePartController implements Initializable {
                 logger.warning("Item not added. Part name cannot be null.");
             }
             else {
+                definePartTableView.getColumns().clear();
                 insertNameCount(partNameTextField.getText(), Integer.parseInt(countTextField.getText()));
                 logger.info("New part added.");
             }
@@ -52,17 +53,22 @@ public class DefinePartController implements Initializable {
     }
     public void addRowButtonPushed() throws SQLException, ClassNotFoundException {
         try {
-            idx = getPartID(partNameTextField.getText());
-            //  isVisibleIntConverter
-            if (visibleCheckBox.isSelected()) isVisible = 1;
-            else isVisible = 0;
-            if (specTextField.getText().equals("")) insertFeatures(idx, 0, "*", "*");
-            else if (valueTextField.getText().equals("")) insertFeatures(idx, isVisible, specTextField.getText(), "*");
-            else insertFeatures(idx, isVisible, specTextField.getText(), valueTextField.getText());
-            searchFeatures();
-            specTextField.clear();
-            valueTextField.clear();
-            logger.info("New Feature added.");
+            if (partNameTextField.getText().equals(""))
+                System.out.println("Please select a part to add feature.");
+            else {
+                idx = getPartID(partNameTextField.getText());
+                //  isVisibleIntConverter
+                if (visibleCheckBox.isSelected()) isVisible = 1;
+                else isVisible = 0;
+                if (specTextField.getText().equals("")) insertFeatures(idx, 0, "*", "*");
+                else if (valueTextField.getText().equals(""))
+                    insertFeatures(idx, isVisible, specTextField.getText(), "*");
+                else insertFeatures(idx, isVisible, specTextField.getText(), valueTextField.getText());
+                searchFeatures();
+                specTextField.clear();
+                valueTextField.clear();
+                logger.info("New Feature added.");
+            }
         } catch (SQLException | ClassNotFoundException e) {
             logger.warning("Problem occurred while inserting spec and value. = " + e);
             System.out.println("Problem occurred while inserting spec and value." + e);
@@ -71,20 +77,24 @@ public class DefinePartController implements Initializable {
     }
 
     public void deleteRowButtonPushed() throws SQLException, ClassNotFoundException {
-        deleteFeaturewithSpec(definePartTableView.getSelectionModel().getSelectedItem().getSpec());
-        searchFeatures();
-        specTextField.clear();
-        valueTextField.clear();
-        logger.info("Part deleted.");
+        if (definePartTableView.getSelectionModel().isEmpty())
+            System.out.println("Please select a part to delete.");
+        else {
+            deleteFeaturewithSpec(definePartTableView.getSelectionModel().getSelectedItem().getSpec());
+            searchFeatures();
+            specTextField.clear();
+            valueTextField.clear();
+            logger.info("Part deleted.");
+        }
     }
 
-    public void clearAllButtonPushed() throws SQLException, ClassNotFoundException {
+    public void clearAllButtonPushed() {
         partNameTextField.clear();
-        countTextField.clear();
+        countTextField.setText("0");
         specTextField.clear();
         valueTextField.clear();
         definePartComboBox.setValue(null);
-        searchFeatures();
+        definePartTableView.getColumns().clear();
         logger.info("All fields cleared.");
     }
 
@@ -108,25 +118,28 @@ public class DefinePartController implements Initializable {
     }
 
     public void comboBoxPushed() throws SQLException, ClassNotFoundException {
-        partNameTextField.setText(definePartComboBox.getValue());
-        idx = getPartID(partNameTextField.getText());
-        searchFeatures();
+        if (definePartComboBox.getSelectionModel().isEmpty())
+            definePartComboBox.getSelectionModel().clearSelection();
+        else {
+            partNameTextField.setText(definePartComboBox.getValue());
+            idx = getPartID(partNameTextField.getText());
+            searchFeatures();
+        }
     }
 
     public void searchFeatures() throws SQLException, ClassNotFoundException {
         try {
             ObservableList<DefinePartModel> featureData = DefinePartDBController.searchFeature(idx);
-            populateFeatures(featureData);
-        } catch (SQLException e){
+            if (featureData.isEmpty()) System.out.println("Data list is empty");
+            else populateFeatures(featureData);
+        } catch (SQLException | ClassNotFoundException e){
             logger.warning("Error occurred while getting Part Feature information from DB. = " + e);
             System.out.println("Error occurred while getting Part Feature information from DB." + e);
             throw e;
         }
     }
 
-    public void populateFeatures(ObservableList<DefinePartModel> featureData) {
-        definePartTableView.setItems(featureData);
-    }
+    public void populateFeatures(ObservableList<DefinePartModel> featureData) { definePartTableView.setItems(featureData); }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -141,7 +154,9 @@ public class DefinePartController implements Initializable {
 
         definePartTableView.editingCellProperty();
         definePartTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
         filterParts(definePartComboBox);
+
         logger.info("DefinePart page loaded.");
     }
 

@@ -22,7 +22,7 @@ public class DataExporter {
         ResultSet partRS;
         try {
             partRS = DatabaseConnector.dbExecuteQuery(allParts);
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             System.out.println("SQL select operation has been failed: " + e);
             throw e;
         }

@@ -31,7 +31,7 @@ public class ListPartDBController {
             ResultSet rsAllPart = DatabaseConnector.dbExecuteQuery(selectStmt);
             logger.info("Successfully searched for selected Part's visible Features.");
             return getAllParts(rsAllPart);
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             logger.warning("SQL select operation has been failed: " + e);
             System.out.println("SQL select operation has been failed: " + e);
             throw e;
@@ -53,13 +53,13 @@ public class ListPartDBController {
     //  Search for values of each Part
     public static String getValofEachPart(int id) throws SQLException, ClassNotFoundException, NullPointerException {
         String selectStmt = "SELECT value FROM tbl_relation WHERE part_id ='" + id + "'";
-        String vals = "";
+        StringBuilder vals = new StringBuilder();
         try {
             ResultSet rsSpecs = DatabaseConnector.dbExecuteQuery(selectStmt);
-            while (rsSpecs.next()) vals += (rsSpecs.getString("value")) + " ";
+            while (rsSpecs.next()) vals.append(rsSpecs.getString("value")).append(" ");
             logger.info("Successfully searched for all specs and values");
-            return vals;
-        } catch (SQLException | NullPointerException e) {
+            return vals.toString();
+        } catch (SQLException | ClassNotFoundException | NullPointerException e) {
             logger.warning("SQL select operation has been failed: " + e);
             System.out.println("SQL select operation has been failed: " + e);
             throw e;

@@ -28,9 +28,13 @@ public class ListPartController implements Initializable {
 
     public void deletePartButtonPushed() throws SQLException, ClassNotFoundException {
         try {
-            ListPartDBController.deletePartwithName(listPartTableView.getSelectionModel().getSelectedItem().getName());
-            listAllParts();
-        } catch (SQLException e) {
+            if (listPartTableView.getSelectionModel().isEmpty())
+                System.out.println("Please select a part");
+            else {
+                ListPartDBController.deletePartwithName(listPartTableView.getSelectionModel().getSelectedItem().getName());
+                listAllParts();
+            }
+        } catch (SQLException | ClassNotFoundException e) {
             logger.warning("Problem occurred while deleting Part. = " + e);
             System.out.println("Problem occurred while deleting Part." + e);
             throw e;
@@ -40,8 +44,9 @@ public class ListPartController implements Initializable {
     public void listAllParts() throws SQLException, ClassNotFoundException {
         try {
             ObservableList<ListPartModel> partData = ListPartDBController.listAllParts();
-            populateParts(partData);
-        } catch (SQLException e){
+            if (partData.isEmpty()) System.out.println("Data list is empty.");
+            else populateParts(partData);
+        } catch (SQLException | ClassNotFoundException e){
             logger.warning("Error occurred while getting Part information from DB. = " + e);
             System.out.println("Error occurred while getting Part information from DB." + e);
             throw e;

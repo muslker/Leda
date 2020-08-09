@@ -17,7 +17,6 @@
         </font>
     </Label>
     <ComboBox fx:id="definePartComboBox" editable="true" layoutX="297.0" layoutY="32.0" onAction="#comboBoxPushed" prefHeight="25.0" prefWidth="308.0" promptText="Search Part" />
-
     <TableView fx:id="definePartTableView" editable="true" layoutY="165.0" prefHeight="380.0" prefWidth="900.0" style="-fx-font-size:14px;">
          <columns>
              <TableColumn fx:id="visibilityColumn" maxWidth="80.0" minWidth="60.0" prefWidth="65.0" style="-fx-alignment:CENTER;" text="Visibility" />
@@ -45,7 +44,6 @@
          <Font name="System Bold" size="14.0" />
       </font>
    </Label>
-
    <Label layoutX="367.0" layoutY="7.0" opacity="0.5" text="Search for Part to add Feature">
       <font>
          <Font name="System Italic" size="14.0" />

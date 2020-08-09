@@ -17,7 +17,7 @@ public class DefinePartDBController {
         try {
             DatabaseConnector.dbExecuteUpdate(updateStmt);
             logger.info("Part name and count successfully inserted to DB.");
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             logger.warning("Error occurred while INSERT Operation: " + e);
             System.out.print("Error occurred while INSERT Operation: " + e);
             throw e;
@@ -33,7 +33,7 @@ public class DefinePartDBController {
             }
             logger.info("Part ID searched from DB successfully.");
             return idx;
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             logger.warning("While searching an Part with " + name + " name, an error occurred: " + e);
             System.out.println("While searching an Part with " + name + " name, an error occurred: " + e);
             throw e;
@@ -47,7 +47,7 @@ public class DefinePartDBController {
         try {
             DatabaseConnector.dbExecuteUpdate(updateStmt);
             logger.info("Part features inserted DB successfully.");
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             logger.warning("Error occurred while INSERT Operation: " + e);
             System.out.print("Error occurred while INSERT Operation: " + e);
             throw e;
@@ -61,7 +61,7 @@ public class DefinePartDBController {
             ResultSet rsFeature = DatabaseConnector.dbExecuteQuery(selectStmt);
             logger.info("Features searched successfully.");
             return getFeatureList(rsFeature);
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             logger.warning("SQL select operation has been failed: " + e);
             System.out.println("SQL select operation has been failed: " + e);
             throw e;
@@ -85,7 +85,7 @@ public class DefinePartDBController {
         try {
             DatabaseConnector.dbExecuteUpdate(updateStmt);
             logger.info("Features deleted successfully.");
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             logger.warning("Error occurred while DELETE Feature Operation: " + e);
             System.out.print("Error occurred while DELETE Feature Operation: " + e);
             throw e;
@@ -98,7 +98,7 @@ public class DefinePartDBController {
         try {
             DatabaseConnector.dbExecuteUpdate(updateStmt);
             logger.info("Spec updated successfully.");
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             logger.warning("Error occurred while UPDATE Spec Operation: " + e);
             System.out.print("Error occurred while UPDATE Spec Operation: " + e);
             throw e;
@@ -110,7 +110,7 @@ public class DefinePartDBController {
         try {
             DatabaseConnector.dbExecuteUpdate(updateStmt);
             logger.info("Value updated successfully.");
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             logger.warning("Error occurred while UPDATE Value Operation: " + e);
             System.out.print("Error occurred while UPDATE Value Operation: " + e);
             throw e;

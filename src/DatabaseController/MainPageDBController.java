@@ -21,7 +21,7 @@ public class MainPageDBController {
             ResultSet rsPart = DatabaseConnector.dbExecuteQuery(selectStmt);
             logger.info("Successfully searched for Part with specified name.");
             return getPartFromResultSet(rsPart);
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             logger.warning("While searching an Part with " + name + " name, an error occurred: " + e);
             System.out.println("While searching an Part with " + name + " name, an error occurred: " + e);
             throw e;
@@ -44,7 +44,7 @@ public class MainPageDBController {
             ResultSet rsPart = DatabaseConnector.dbExecuteQuery(selectStmt);
             logger.info("Successfully searched Part with it's name.");
             return getPartNames(rsPart);
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             logger.warning("SQL select operation has been failed: " + e);
             System.out.println("SQL select operation has been failed: " + e);
             throw e;
@@ -64,7 +64,7 @@ public class MainPageDBController {
         try {
             DatabaseConnector.dbExecuteUpdate(updateStmt);
             logger.info("Successfully updated part's count.");
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             logger.warning("Error occurred while UPDATE Part Operation: " + e);
             System.out.print("Error occurred while UPDATE Part Operation: " + e);
             throw e;
@@ -79,7 +79,7 @@ public class MainPageDBController {
             ResultSet rsVisibleFeature = DatabaseConnector.dbExecuteQuery(selectStmt);
             logger.info("Successfully searched for selected Part's visible Features.");
             return getVisibleFeature(rsVisibleFeature);
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             logger.warning("SQL select operation has been failed: " + e);
             System.out.println("SQL select operation has been failed: " + e);
             throw e;

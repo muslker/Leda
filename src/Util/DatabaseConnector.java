@@ -46,7 +46,7 @@ public class DatabaseConnector {
             resultSet = stmt.executeQuery(queryStmt);
 
             crs.populate(resultSet);
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             logger.warning("Problem occurred at executeQuery operation : " + e);
             System.out.println("Problem occurred at executeQuery operation : " + e);
             throw e;
@@ -68,7 +68,7 @@ public class DatabaseConnector {
             dbConnect();
             stmt = conn.createStatement();
             stmt.executeUpdate(sqlStmt);
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             logger.warning("Problem occurred at executeUpdate operation : " + e);
             System.out.println("Problem occurred at executeUpdate operation : " + e);
             throw e;
