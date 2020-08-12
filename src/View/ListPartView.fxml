@@ -14,7 +14,6 @@
             <Font name="System Bold" size="20.0" />
         </font>
     </Label>
-    <Button fx:id="deletePartButton" layoutX="734.0" layoutY="29.0" mnemonicParsing="false" onAction="#deletePartButtonPushed" prefHeight="30.0" prefWidth="120.0" text="Delete Part" textAlignment="CENTER" />
     <TableView fx:id="listPartTableView" layoutX="10.0" layoutY="76.0" prefHeight="470.0" prefWidth="880.0">
      <columns>
          <TableColumn fx:id="countColumn" editable="false" maxWidth="70.0" minWidth="30.0" prefWidth="50.0" text="Count" />
@@ -25,5 +24,6 @@
          <Cursor fx:constant="CROSSHAIR" />
       </cursor>
    </TableView>
+    <Button fx:id="deletePartButton" layoutX="734.0" layoutY="29.0" mnemonicParsing="false" onAction="#deletePartButtonPushed" prefHeight="30.0" prefWidth="120.0" text="Delete Part" textAlignment="CENTER" />
     <Button fx:id="mainPageButton" alignment="CENTER" layoutX="734.0" layoutY="556.0" mnemonicParsing="false" onAction="#goto_mainPage" prefHeight="30.0" prefWidth="120.0" text="Previous Page" underline="true" />
 </AnchorPane>

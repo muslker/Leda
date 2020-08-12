@@ -29,11 +29,11 @@
          <Cursor fx:constant="CROSSHAIR" />
       </cursor>
    </TableView>
-    <Button fx:id="incBut" layoutX="804.0" layoutY="334.0" onAction="#increaseCountPressed" prefHeight="35.0" prefWidth="65.0" text="_Increase" textAlignment="CENTER" />
     <TextField fx:id="incDecTextField" alignment="CENTER" layoutX="814.0" layoutY="290.0" prefHeight="35.0" prefWidth="45.0" text="1">
         <font>
             <Font size="14.0" />
         </font></TextField>
+    <Button fx:id="incBut" layoutX="804.0" layoutY="334.0" onAction="#increaseCountPressed" prefHeight="35.0" prefWidth="65.0" text="_Increase" textAlignment="CENTER" />
     <Button fx:id="decBut" layoutX="804.0" layoutY="379.0" onAction="#decreaseCountPressed" prefHeight="35.0" prefWidth="65.0" text="_Decrease" />
     <Button fx:id="listPartPageButton" layoutX="691.0" layoutY="29.0" onAction="#goto_ListPartPage" prefHeight="30.0" prefWidth="80.0" text="_List Parts" textAlignment="CENTER" underline="true" wrapText="true" />
     <Button fx:id="definePartPageButton" layoutX="789.0" layoutY="29.0" onAction="#goto_DefinePartPage" prefHeight="30.0" prefWidth="80.0" text="Define _Part" underline="true" />

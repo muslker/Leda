@@ -12,9 +12,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -37,6 +38,7 @@ public class MainPageController implements Initializable {
     public MenuBar mainMenuBar;
     public Menu fileMenu, helpMenu;
     public MenuItem exitMenuItem, aboutMenuItem, exportMenuItem, importMenuItem;
+    public String exportPath;
 
     public void searchFeatures() throws SQLException, ClassNotFoundException, NullPointerException {
         try {
@@ -116,7 +118,20 @@ public class MainPageController implements Initializable {
     }
 
     public void exportDB() throws SQLException, IOException, ClassNotFoundException {
-        ExcelExporter();
+        try {
+            FileChooser fil_chooser = new FileChooser();
+            fil_chooser.setInitialFileName("Leda_DB.xlsx");
+            fil_chooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Excel File", "*.xlsx"));
+            File file = fil_chooser.showSaveDialog(new Stage());
+            if (file != null) {
+                exportPath = file.getAbsolutePath();
+            }
+        }
+        catch (Exception e) {
+            logger.warning("Error occurred while getting file path to save excel document.");
+            e.printStackTrace();
+        }
+        ExcelExporter(exportPath);
     }
     public void aboutMenuItem() throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("View/AboutView.fxml")));

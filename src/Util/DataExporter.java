@@ -16,7 +16,7 @@ import static Util.LogHandler.logger;
 
 public class DataExporter {
 
-    public static void ExcelExporter() throws SQLException, IOException, ClassNotFoundException {
+    public static void ExcelExporter(String exportPath) throws SQLException, IOException, ClassNotFoundException {
 
         String allParts = "SELECT * FROM tbl_part";
         ResultSet partRS;
@@ -56,12 +56,10 @@ public class DataExporter {
         }
         for (i = 1; i <= 4; i++) spreadsheet.autoSizeColumn(i);
 
-        FileOutputStream out = new FileOutputStream(new File("export-import/Leda_DB.xlsx"));
+        FileOutputStream out = new FileOutputStream(new File(exportPath));
         workbook.write(out);
         out.close();
         logger.info("Leda_DB.xlsx written successfully.");
         System.out.println("Leda_DB.xlsx written successfully.");
     }
-
 }
-
