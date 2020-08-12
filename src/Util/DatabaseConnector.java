@@ -1,7 +1,9 @@
 package Util;
 
-import javax.sql.rowset.*;
+import javax.sql.rowset.CachedRowSet;
+import javax.sql.rowset.RowSetProvider;
 import java.sql.*;
+
 import static Util.LogHandler.logger;
 
 public class DatabaseConnector {

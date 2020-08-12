@@ -1,9 +1,9 @@
 package DatabaseController;
 
 import Model.ListPartModel;
+import Util.DatabaseConnector;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import Util.DatabaseConnector;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

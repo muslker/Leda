@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import static Util.LogHandler.logger;
 
 public class DefinePartDBController {
