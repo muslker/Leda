@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import static Util.LogHandler.logger;
@@ -73,7 +74,7 @@ public class ListPartController implements Initializable {
     }
 
     public void goto_mainPage(ActionEvent event) throws IOException {
-        Parent mainPage = FXMLLoader.load(getClass().getResource("../View/MainPageView.fxml"));
+        Parent mainPage = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("View/MainPageView.fxml")));
         Scene mainPageScene = new Scene(mainPage);
         Stage mainPageStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         mainPageStage.setScene(mainPageScene);

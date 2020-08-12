@@ -18,12 +18,12 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import static DatabaseController.MainPageDBController.searchVisibleFeatures;
 import static DatabaseController.MainPageDBController.visFtr;
 import static Util.DataExporter.ExcelExporter;
-import static Util.LogHandler.fh;
 import static Util.LogHandler.logger;
 
 public class MainPageController implements Initializable {
@@ -112,7 +112,6 @@ public class MainPageController implements Initializable {
     }
 
     public void exitMenuItem(){
-        fh.close();
         System.exit(0);
     }
 
@@ -120,23 +119,23 @@ public class MainPageController implements Initializable {
         ExcelExporter();
     }
     public void aboutMenuItem() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("../View/AboutView.fxml"));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("View/AboutView.fxml")));
         Scene scene = new Scene(root);
         Stage stage = new Stage();
-        stage.getIcons().add(new Image(MainPageController.class.getResourceAsStream("../icon.png")));
+//        stage.getIcons().add(new Image(MainPageController.class.getResourceAsStream("../icon.png")));
         stage.setTitle("About");
         stage.setScene(scene);
         stage.show();
     }
     public void goto_ListPartPage(ActionEvent event) throws IOException {
-        Parent ListPartPage = FXMLLoader.load(getClass().getResource("../View/ListPartView.fxml"));
+        Parent ListPartPage = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("View/ListPartView.fxml")));
         Scene ListPartScene = new Scene(ListPartPage);
         Stage ListPartStage = (Stage)((Node)event.getSource()).getScene().getWindow();
         ListPartStage.setScene(ListPartScene);
         ListPartStage.show();
     }
     public void goto_DefinePartPage(ActionEvent event) throws IOException {
-        Parent DefinePartPage = FXMLLoader.load(getClass().getResource("../View/DefinePartView.fxml"));
+        Parent DefinePartPage = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("View/DefinePartView.fxml")));
         Scene DefinePartScene = new Scene(DefinePartPage);
         Stage DefinePartStage = (Stage)((Node)event.getSource()).getScene().getWindow();
         DefinePartStage.setScene(DefinePartScene);

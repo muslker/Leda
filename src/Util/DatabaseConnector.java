@@ -5,9 +5,9 @@ import java.sql.*;
 import static Util.LogHandler.logger;
 
 public class DatabaseConnector {
-    private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
+    private static final String JDBC_DRIVER = "org.sqlite.JDBC";
     private static Connection conn = null;
-    private static final String connStr = "jdbc:mysql://root:root@localhost:3306/ledaschema";
+    private static final String connStr = "jdbc:sqlite:LedaSQLite.db";
 
     public static void dbConnect() throws SQLException, ClassNotFoundException {
         try {

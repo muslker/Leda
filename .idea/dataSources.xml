@@ -7,11 +7,11 @@
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://localhost:3306/ledaschema</jdbc-url>
     </data-source>
-    <data-source source="LOCAL" name="SQLite Test" uuid="d41226c9-b38b-4664-9b5a-a38360912de1">
+    <data-source source="LOCAL" name="LedaSQLite.db" uuid="513115b9-be28-440c-87ef-c1710b0266b1">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:identifier.sqlite</jdbc-url>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/database/LedaSQLite.db</jdbc-url>
     </data-source>
   </component>
 </project>
