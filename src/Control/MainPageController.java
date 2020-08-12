@@ -125,7 +125,9 @@ public class MainPageController implements Initializable {
             File file = fil_chooser.showSaveDialog(new Stage());
             if (file != null) {
                 exportPath = file.getAbsolutePath();
+                logger.info("Save location selected successfully.");
             }
+            else logger.warning("Save location not selected.");
         }
         catch (Exception e) {
             logger.warning("Error occurred while getting file path to save excel document.");
