@@ -35,24 +35,23 @@ public class DefinePartController implements Initializable {
     public ComboBox<String> definePartComboBox;
     public String oldVal = null, oldSpec = null;
 
-    public void addPartButtonPushed() throws SQLException, ClassNotFoundException {
+    public void addPartButtonPushed() {
         try {
             if (partNameTextField.getText().equals("")){
                 System.out.println("Part name cannot be null.");
                 logger.warning("Item not added. Part name cannot be null.");
             }
             else {
-                definePartTableView.getColumns().clear();
+                definePartTableView.getItems().clear();
                 insertNameCount(partNameTextField.getText(), Integer.parseInt(countTextField.getText()));
                 logger.info("New part added.");
             }
         } catch (SQLException | ClassNotFoundException e) {
             logger.warning("Problem occurred while inserting Part. = " + e);
             System.out.println("Problem occurred while inserting Part." + e);
-            throw e;
         }
     }
-    public void addRowButtonPushed() throws SQLException, ClassNotFoundException {
+    public void addRowButtonPushed() {
         try {
             if (partNameTextField.getText().equals(""))
                 System.out.println("Please select a part to add feature.");
@@ -73,7 +72,6 @@ public class DefinePartController implements Initializable {
         } catch (SQLException | ClassNotFoundException e) {
             logger.warning("Problem occurred while inserting spec and value. = " + e);
             System.out.println("Problem occurred while inserting spec and value." + e);
-            throw e;
         }
     }
 
@@ -95,7 +93,8 @@ public class DefinePartController implements Initializable {
         specTextField.clear();
         valueTextField.clear();
         definePartComboBox.setValue(null);
-        definePartTableView.getColumns().clear();
+        definePartTableView.getItems().clear();
+        visibleCheckBox.setSelected(false);
         logger.info("All fields cleared.");
     }
 
@@ -115,7 +114,6 @@ public class DefinePartController implements Initializable {
         definePartTableView.getSelectionModel().getSelectedItem().setValue(valStrCellEdit.getNewValue());
         updateValueData(valStrCellEdit.getNewValue(), oldVal);
         logger.info("Part's Value updated.");
-
     }
 
     public void comboBoxPushed() throws SQLException, ClassNotFoundException {

@@ -10,7 +10,7 @@ public class LogHandler {
 
     public static void LogHandle() {
         try {
-            FileHandler fh = new FileHandler("Leda_Log.txt");
+            FileHandler fh = new FileHandler("Leda_Log.log");
             System.setProperty("java.util.logging.SimpleFormatter.format", "[%1$tF %1$tT] - [%4$-7s] - [%2$s] -> %5$s%6$s%n");
             fh.setFormatter(new SimpleFormatter());
             logger.addHandler(fh);
