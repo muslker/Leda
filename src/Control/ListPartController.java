@@ -45,15 +45,18 @@ public class ListPartController implements Initializable {
         }
     }
 
-    public void listAllParts() throws SQLException, ClassNotFoundException {
+    public void listAllParts()  {
         try {
             ObservableList<ListPartModel> partData = ListPartDBController.listAllParts();
-            if (partData.isEmpty()) System.out.println("Data list is empty.");
+            if (partData.isEmpty()) {
+                System.out.println("Data list is empty.");
+                logger.warning("Data list is empty.");
+                listPartTableView.getItems().clear();
+            }
             else populateParts(partData);
         } catch (SQLException | ClassNotFoundException e){
             logger.warning("Error occurred while getting Part information from DB. = " + e);
             System.out.println("Error occurred while getting Part information from DB." + e);
-            throw e;
         }
     }
 
@@ -66,13 +69,7 @@ public class ListPartController implements Initializable {
         countColumn.setCellValueFactory(cellData -> cellData.getValue().countProperty().asObject());
         nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
         specColumn.setCellValueFactory(cd -> cd.getValue().valProperty());
-
-        try {
-            listAllParts();
-        } catch (SQLException | ClassNotFoundException throwables) {
-            logger.warning("Exception occurred = " + throwables);
-            throwables.printStackTrace();
-        }
+        listAllParts();
         logger.info("ListPart page loaded.");
     }
 
