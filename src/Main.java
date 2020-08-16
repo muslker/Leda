@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.util.Objects;
 
 import static Util.LogHandler.LogHandle;
@@ -19,6 +20,8 @@ public class Main extends Application {
         stage.setTitle("Electronical Part Tracker");
         stage.setScene(mainScene);
         stage.show();
+        SplashScreen splash = SplashScreen.getSplashScreen();
+        splash.close();
     }
 
     public static void main(String[] args) {
