@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>Control</OriginalElement>
+  <nodes>
+    <node x="4.5" y="743.0">Control.DefinePartController</node>
+    <node x="417.0" y="0.0">Control.ListPartController</node>
+    <node x="0.0" y="0.0">Control.MainPageController</node>
+    <node x="791.0" y="0.0">Control.AboutController</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="Control.DefinePartController" target="Control.MainPageController">
+      <point x="0.0" y="-369.0" />
+      <point x="0.0" y="346.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.5969353764157228" x="514.5" y="740.5" />
+  <SelectedNodes>
+    <node>Control.DefinePartController</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Properties</Category>
+    <Category>Methods</Category>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>Util</OriginalElement>
+  <nodes>
+    <node x="0.0" y="463.0">Util.SearchInputFilter</node>
+    <node x="82.25" y="364.0">Util.DataExporter</node>
+    <node x="0.0" y="127.0">Util.DatabaseConnector</node>
+    <node x="104.25" y="0.0">Util.LogHandler</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="Util.DatabaseConnector" target="Util.LogHandler">
+      <point x="0.0" y="-93.5" />
+      <point x="113.0" y="102.0" />
+      <point x="139.5" y="102.0" />
+      <point x="-35.25" y="38.5" />
+    </edge>
+    <edge source="Util.DataExporter" target="Util.DatabaseConnector">
+      <point x="-46.25" y="-27.0" />
+      <point x="128.5" y="339.0" />
+      <point x="113.0" y="339.0" />
+      <point x="0.0" y="93.5" />
+    </edge>
+    <edge source="Util.DataExporter" target="Util.LogHandler">
+      <point x="46.25" y="-27.0" />
+      <point x="221.0" y="339.0" />
+      <point x="236.5" y="339.0" />
+      <point x="236.5" y="102.0" />
+      <point x="210.0" y="102.0" />
+      <point x="35.25" y="38.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="236.0" y="336.5" />
+  <SelectedNodes>
+    <node>Util.SearchInputFilter</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

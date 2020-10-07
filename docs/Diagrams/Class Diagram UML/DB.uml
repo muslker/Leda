@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>513115b9-be28-440c-87ef-c1710b0266b1.TABLE:main.tbl_part</OriginalElement>
+  <nodes>
+    <node x="0.0" y="149.0">513115b9-be28-440c-87ef-c1710b0266b1.TABLE:main.tbl_relation</node>
+    <node x="1.0" y="0.0">513115b9-be28-440c-87ef-c1710b0266b1.TABLE:main.tbl_part</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="513115b9-be28-440c-87ef-c1710b0266b1.TABLE:main.tbl_relation" target="513115b9-be28-440c-87ef-c1710b0266b1.TABLE:main.tbl_part">
+      <point x="0.0" y="-60.0" />
+      <point x="0.0" y="49.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="64.0" y="134.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Key columns</Category>
+    <Category>Columns</Category>
+    <Category>Virtual foreign keys</Category>
+  </Categories>
+</Diagram>
+

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>DatabaseController</OriginalElement>
+  <nodes>
+    <node x="409.0" y="276.0">DatabaseController.ListPartDBController</node>
+    <node x="0.0" y="0.0">DatabaseController.MainPageDBController</node>
+    <node x="0.0" y="276.0">DatabaseController.DefinePartDBController</node>
+  </nodes>
+  <notes />
+  <edges />
+  <settings layout="Hierarchic Group" zoom="1.0" x="370.0" y="242.0" />
+  <SelectedNodes>
+    <node>DatabaseController.ListPartDBController</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

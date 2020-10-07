@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>Model</OriginalElement>
+  <nodes>
+    <node x="290.0" y="0.0">Model.ListPartModel</node>
+    <node x="0.0" y="344.0">Model.MainPageModel</node>
+    <node x="0.0" y="0.0">Model.DefinePartModel</node>
+  </nodes>
+  <notes />
+  <edges />
+  <settings layout="Hierarchic Group" zoom="1.0" x="254.0" y="299.0" />
+  <SelectedNodes>
+    <node>Model.ListPartModel</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
